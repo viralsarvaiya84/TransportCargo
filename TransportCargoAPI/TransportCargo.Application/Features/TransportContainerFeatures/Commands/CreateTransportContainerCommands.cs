@@ -40,18 +40,33 @@ namespace TransportCargo.Application.Features.TransportContainerFeatures.Command
     public class CreateTransportContainerCommandsHandler : IRequestHandler<CreateTransportContainerCommands, Response<bool>>
     {
         private readonly ITransportContainer _transportContainerService;
+        private readonly IInstruction _instructionService;
         private readonly IMapper _mapper;
-        public CreateTransportContainerCommandsHandler(ITransportContainer transportContainerService, IMapper mapper)
+        public CreateTransportContainerCommandsHandler(ITransportContainer transportContainerService, IInstruction instruction, IMapper mapper)
         {
             _transportContainerService = transportContainerService;
+            _instructionService = instruction;
             _mapper = mapper;
         }
         public async Task<Response<bool>> Handle(CreateTransportContainerCommands command, CancellationToken cancellationToken)
         {
             try
             {
+                var container = _transportContainerService.GetQueryableAsync().Where(a => a.ContainerNumber == command.ContainerNumber).FirstOrDefault();
+                if (container != null) 
+                {
+                  return  new Response<bool> 
+                    {
+                    Data = false,
+                    Message= "Container Number Already Exist"
+                    };
+                }
+                var getInstruction = _instructionService.GetQueryableAsync().FirstOrDefault(a => a.Id == command.InstructionId);
+                getInstruction.Status = "Scheduled";
+                
                 var instruction = _mapper.Map<TransportContainer>(command);
                 await _transportContainerService.AddAsync(instruction);
+                await _instructionService.UpdateAsync(getInstruction);
 
                 return new Response<bool>(true);
             }

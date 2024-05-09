@@ -45,6 +45,15 @@ namespace TransportCargo.Application.Features.InstructionFeatures.Commands
         {
             try
             {
+                var bookingRef = _instructionService.GetQueryableAsync().FirstOrDefault(a => a.BookingRef == command.BookingRef);
+                if (bookingRef != null) 
+                {
+                    return new Response<bool>
+                    {
+                        Data = false,
+                        Message = "BookingRef Number Already Exist"
+                    };
+                }
                 var instruction = _mapper.Map<Instruction>(command);
                 await _instructionService.AddAsync(instruction);
 

@@ -31,7 +31,7 @@ namespace TransportCargo.Application.Features.InstructionFeatures.Query
             try
             {
                 
-                var listOfInstruction =_instructionService.GetQueryableAsync().ToList();
+                var listOfInstruction =_instructionService.GetQueryableAsync().Where(a=>a.Status== "Pending").ToList();
                 
                 var listOfInstructionViewModel = _mapper.Map<List<InstructionViewModel>>(listOfInstruction);
 
