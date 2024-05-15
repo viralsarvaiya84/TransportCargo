@@ -1,0 +1,104 @@
+
+<div>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
+        <div class="form-group">
+          <label for="title">ClientName</label>
+          <input
+            type="text"
+            class="form-control"
+            id="clientName"
+            required
+            [(ngModel)]="instruction.clientName"
+            name="clientName"
+          />
+        </div>
+        <div class="form-group">
+          <label for="title">InstructionDate</label>
+          <input
+            type="date"
+            class="form-control"
+            id="instructionDate"
+            required
+            [(ngModel)]="instruction.instructionDate"
+            name="instructionDate"
+          />
+        </div>
+        <div class="form-group">
+          <label for="title">PickupAddress</label>
+          <input
+            type="text"
+            class="form-control"
+            id="pickupAddress"
+            required
+            [(ngModel)]="instruction.pickupAddress"
+            name="pickupAddress"
+          />
+        </div>
+        <div class="form-group">
+          <label for="title">DeliveryAddress</label>
+          <input
+            type="text"
+            class="form-control"
+            id="deliveryAddress"
+            required
+            [(ngModel)]="instruction.deliveryAddress"
+            name="deliveryAddress"
+          />
+        </div>
+        <div class="form-group">
+          <label for="title">ClientRef</label>
+          <input
+            type="text"
+            class="form-control"
+            id="clientRef"
+            required
+            [(ngModel)]="instruction.clientRef"
+            name="clientRef"
+          />
+        </div>
+        <div class="form-group">
+          <label for="title">BookingRef</label>
+          <input
+            type="text"
+            class="form-control"
+            id="bookingRef"
+            required
+            [(ngModel)]="instruction.bookingRef"
+            name="bookingRef"
+          />
+        </div>
+        <!-- <div class="form-group">
+          <label for="title">Status</label>
+          <input
+            type="text"
+            class="form-control"
+            id="status"
+            required
+            [(ngModel)]="instruction.status"
+            name="status"
+          />
+        </div> -->
+        <div class="form-group">
+          <label for="title">Qty</label>
+          <input
+            type="text"
+            class="form-control"
+            id="qty"
+            required
+            [(ngModel)]="instruction.qty"
+            name="qty"
+          />
+        </div>
+        
+  
+        <button (click)="saveInstruction()" class="btn btn-success">Submit</button>
+      </div>
+  
+      <div *ngIf="submitted">
+        <h4>Instruction was submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newInstruction()">Add</button>
+      </div>
+    </div>
+  </div>
+  
